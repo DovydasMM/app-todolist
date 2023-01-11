@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
-import { Project } from './shared/task/project.model';
-import { TaskModel } from './shared/task/task.model';
-import { TaskListService } from './task-list.service';
-import { Task } from './task';
-import { Router } from '@angular/router';
-import { PostsService } from './posts.service';
+import { Injectable } from "@angular/core";
+import { Project } from "./shared/task/project.model";
+import { TaskModel } from "./shared/task/task.model";
+import { TaskListService } from "./task-list.service";
+import { Task } from "./task";
+import { Router } from "@angular/router";
+import { PostsService } from "./posts.service";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class ProjectsService {
   constructor(
@@ -15,14 +15,7 @@ export class ProjectsService {
     private router: Router,
     private postService: PostsService
   ) {}
-  // taskList = this.taskService.getTasks('all').taskList;
-  // project1 = new Project(
-  //   'First project',
-  //   [this.taskList[0], this.taskList[1]],
-  //   1
-  // );
-  // project2 = new Project('Second project', [this.taskList[2]], 2);
-  // projectList: Project[] = [this.project1, this.project2];
+
   projectList: Project[];
 
   getProjectList() {
@@ -34,7 +27,7 @@ export class ProjectsService {
   }
 
   createProject(name) {
-    let id = '';
+    let id = "";
     let taskArray = [];
     let newProject: Project = new Project(
       name,
@@ -62,15 +55,16 @@ export class ProjectsService {
     this.taskService.taskList.push(newTask);
   }
 
-  deleteTask(task, currentProject: any = '') {
-    if (currentProject == '') {
+  deleteTask(task, currentProject: any = "") {
+    if (currentProject == "") {
       const project = this.projectList.find((list) =>
         list.projectTaskList.includes(task)
       );
       const taskID = project.projectTaskList.indexOf(task);
       project.projectTaskList.splice(taskID, 1);
-    }
-    this.taskService.deleteTask(task);
+
+      console.log(this.projectList);
+    } else this.taskService.deleteTask(task);
   }
 
   deleteProject(project: Project) {
@@ -83,6 +77,7 @@ export class ProjectsService {
   importProject() {
     this.postService.fetchPost().subscribe((responseData) => {
       this.projectList = responseData;
+      this.taskService.importTasks(this.projectList);
     });
   }
 }

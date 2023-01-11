@@ -1,13 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ProjectsService } from 'src/app/projects.service';
-import { Task } from 'src/app/task';
-import { TaskListService } from 'src/app/task-list.service';
+import { Component, Input, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { ProjectsService } from "src/app/projects.service";
+import { Task } from "src/app/task";
+import { TaskListService } from "src/app/task-list.service";
 
 @Component({
-  selector: 'app-task',
-  templateUrl: './task.component.html',
-  styleUrls: ['./task.component.css'],
+  selector: "app-task",
+  templateUrl: "./task.component.html",
+  styleUrls: ["./task.component.css"],
 })
 export class TaskComponent implements OnInit {
   @Input() task: Task;
