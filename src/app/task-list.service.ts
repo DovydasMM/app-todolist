@@ -1,0 +1,104 @@
+import { Injectable } from '@angular/core';
+import { Task } from './task';
+import { Router } from '@angular/router';
+import { Project } from './shared/task/project.model';
+import { PostsService } from './posts.service';
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class TaskListService {
+  constructor(private router: Router, private postService: PostsService) {}
+  taskList: Task[] = [
+    // {
+    //   name: 'Cleaning',
+    //   description: 'Take out the trash, clean the kitchen',
+    //   date: '2022-12-20',
+    //   priority: true,
+    // },
+    // {
+    //   name: 'Studying',
+    //   description: 'Prepare for math test, complete physics project',
+    //   date: '2022-12-26',
+    //   priority: true,
+    // },
+    // {
+    //   name: 'Rest',
+    //   description: 'After a hard day of work, you should rest',
+    //   date: '2022-12-31',
+    //   priority: false,
+    // },
+  ];
+
+  togglePriority(task: Task) {
+    task.priority = task.priority ? false : true;
+  }
+
+  onTaskEdit(taskToEdit, newTask) {
+    const taskID = this.taskList.indexOf(taskToEdit);
+    // this.taskList[taskID] = newTask;
+    this.taskList[taskID].name = newTask.name;
+    this.taskList[taskID].description = newTask.description;
+    this.taskList[taskID].date = newTask.date;
+    this.taskList[taskID].priority = newTask.priority;
+  }
+
+  getTasks(taskType) {
+    switch (taskType) {
+      case 'all':
+        return { name: 'All tasks', taskList: this.taskList };
+      case 'important':
+        const importantTasks = this.taskList.filter(
+          (task) => task.priority == true
+        );
+        return { name: 'Important', taskList: importantTasks };
+      case 'today':
+        const date = new Date().toISOString().slice(0, 10);
+        const todayTasks = this.taskList.filter((task) => task.date == date);
+        return { name: 'Today', taskList: todayTasks };
+
+      case 'weekly':
+        let today: any = new Date();
+        let nextWeek: any = new Date();
+        nextWeek.setDate(today.getDate() + 7);
+        today = today.toISOString().slice(0, 10);
+        nextWeek = nextWeek.toISOString().slice(0, 10);
+        const weekTasks = this.taskList.filter(
+          (task) =>
+            Date.parse(task.date) >= Date.parse(today) &&
+            Date.parse(task.date) <= Date.parse(nextWeek)
+        );
+        return { name: 'Nex 7 Days', taskList: weekTasks };
+      default:
+        this.router.navigate(['/not-found']);
+    }
+  }
+
+  deleteTask(task) {
+    const taskID = this.taskList.indexOf(task);
+    if (taskID < 0) return;
+    console.log(taskID);
+    this.taskList.splice(taskID, 1);
+  }
+
+  deleteTasksOfProject(taskList) {
+    taskList.forEach((task) => {
+      this.taskList.splice(this.taskList.indexOf(task), 1);
+    });
+  }
+
+  importTasks() {
+    let projectList: Project[] = [];
+    let randomArray = [];
+    const importedTasks = [];
+    this.postService.fetchPost().subscribe((responseData) => {
+      projectList = responseData;
+      projectList.forEach((project) => {
+        if (project.projectTaskList)
+          importedTasks.push(...project.projectTaskList);
+      });
+      this.taskList = importedTasks;
+    });
+  }
+}

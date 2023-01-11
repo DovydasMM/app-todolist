@@ -1,0 +1,30 @@
+<ul>
+  <li class="taskCard">
+    <div class="information">
+      <span>{{ task.name }} </span>
+      <span>{{ task.description }} </span>
+    </div>
+    <div class="taskCard-right">
+      <div class="taskCard-date">
+        <span>{{ task.date }} </span>
+      </div>
+      <div (click)="changePriority(task)">
+        <span *ngIf="task.priority"><i class="bi bi-star-fill"></i></span>
+        <span *ngIf="!task.priority"> <i class="bi bi-star"></i></span>
+      </div>
+
+      <div class="btn-group" appDropdown>
+        <span class="dropdown-toggle">
+          <i class="bi bi-three-dots-vertical"></i>
+        </span>
+        <ul class="dropdown-menu">
+          <li><a (click)="onEdit(task)">Edit</a></li>
+          <li><a (click)="onDelete(task)">Delete</a></li>
+        </ul>
+      </div>
+    </div>
+  </li>
+  <div *ngIf="editTask == true">
+    <app-task-edit [taskToEdit]="task" (changeSaved)="onSave()"></app-task-edit>
+  </div>
+</ul>
