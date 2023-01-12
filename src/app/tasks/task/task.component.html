@@ -6,7 +6,8 @@
     </div>
     <div class="taskCard-right">
       <div class="taskCard-date">
-        <span>{{ task.date }} </span>
+        <span *ngIf="task.date">{{ task.date }} </span>
+        <span *ngIf="!task.date">No date selected </span>
       </div>
       <div (click)="changePriority(task)">
         <span *ngIf="task.priority"><i class="bi bi-star-fill"></i></span>

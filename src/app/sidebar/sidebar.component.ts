@@ -1,16 +1,16 @@
-import { Component, DoCheck, OnInit, Output, ViewChild } from '@angular/core';
-import { ProjectsService } from '../projects.service';
-import { Project } from '../shared/task/project.model';
-import { ElementRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, DoCheck, OnInit, Output, ViewChild } from "@angular/core";
+import { ProjectsService } from "../projects.service";
+import { Project } from "../shared/task/project.model";
+import { ElementRef } from "@angular/core";
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.css'],
+  selector: "app-sidebar",
+  templateUrl: "./sidebar.component.html",
+  styleUrls: ["./sidebar.component.css"],
 })
 export class SidebarComponent implements OnInit, DoCheck {
-  @ViewChild('nameInput', { static: false }) nameInputRef: ElementRef;
+  @ViewChild("nameInput", { static: false }) nameInputRef: ElementRef;
   projectList: Project[];
   createProject: boolean = false;
   constructor(
@@ -34,7 +34,7 @@ export class SidebarComponent implements OnInit, DoCheck {
 
   onDelete(project) {
     this.projectService.deleteProject(project);
-    this.router.navigate(['/all']);
+    // this.router.navigate(['/all']);
   }
 
   ngDoCheck(): void {

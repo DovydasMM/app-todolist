@@ -4,22 +4,22 @@ import {
   OnInit,
   ViewChild,
   ɵɵsetComponentScope,
-} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { ProjectsService } from 'src/app/projects.service';
-import { Task } from 'src/app/task';
-import { Project } from 'src/app/shared/task/project.model';
+} from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { ProjectsService } from "src/app/projects.service";
+import { Task } from "src/app/task";
+import { Project } from "src/app/shared/task/project.model";
 
 @Component({
-  selector: 'app-project-tasks',
-  templateUrl: './project-tasks.component.html',
-  styleUrls: ['./project-tasks.component.css'],
+  selector: "app-project-tasks",
+  templateUrl: "./project-tasks.component.html",
+  styleUrls: ["./project-tasks.component.css"],
 })
 export class ProjectTasksComponent implements OnInit {
-  @ViewChild('nameInput', { static: false }) nameInputRef: ElementRef;
-  @ViewChild('descriptionInput', { static: false })
+  @ViewChild("nameInput", { static: false }) nameInputRef: ElementRef;
+  @ViewChild("descriptionInput", { static: false })
   descriptionInputRef: ElementRef;
-  @ViewChild('dateInput', { static: false }) dateInputRef: ElementRef;
+  @ViewChild("dateInput", { static: false }) dateInputRef: ElementRef;
 
   constructor(
     private route: ActivatedRoute,
@@ -41,11 +41,15 @@ export class ProjectTasksComponent implements OnInit {
     this.createTaskMenu = false;
   }
 
+  onCancel() {
+    this.createTaskMenu = false;
+  }
+
   ngOnInit(): void {
     this.route.params.subscribe(
       (params) =>
         (this.currentProject = this.projectService.getProjectByID(
-          +this.route.snapshot.params['id'] - 1
+          +this.route.snapshot.params["id"] - 1
         ))
     );
   }

@@ -53,6 +53,7 @@ export class ProjectsService {
     const newTask = new TaskModel(name, desc, date, false);
     this.projectList[projectID].projectTaskList.push(newTask);
     this.taskService.taskList.push(newTask);
+    this.postService.updateProject(currentProject).subscribe();
   }
 
   deleteTask(task, currentProject: any = "") {
@@ -62,8 +63,8 @@ export class ProjectsService {
       );
       const taskID = project.projectTaskList.indexOf(task);
       project.projectTaskList.splice(taskID, 1);
-
-      console.log(this.projectList);
+      this.postService.updateProject(project).subscribe();
+      this.taskService.deleteTask(task);
     } else this.taskService.deleteTask(task);
   }
 
@@ -79,5 +80,17 @@ export class ProjectsService {
       this.projectList = responseData;
       this.taskService.importTasks(this.projectList);
     });
+
+    this.taskService.taskEdited.subscribe((task) => {
+      this.onTaskEdit(task);
+    });
+  }
+
+  onTaskEdit(task) {
+    const project = this.projectList.find((list) =>
+      list.projectTaskList.includes(task)
+    );
+
+    this.postService.updateProject(project).subscribe();
   }
 }

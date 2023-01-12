@@ -3,7 +3,8 @@ import { Task } from "./task";
 import { Router } from "@angular/router";
 import { Project } from "./shared/task/project.model";
 import { PostsService } from "./posts.service";
-import { Observable } from "rxjs";
+import { Observable, Subject } from "rxjs";
+import { TaskModel } from "./shared/task/task.model";
 
 @Injectable({
   providedIn: "root",
@@ -13,9 +14,12 @@ export class TaskListService {
 
   testValue;
 
+  taskEdited = new Subject<Task>();
+
   taskList = [];
   togglePriority(task: Task) {
     task.priority = task.priority ? false : true;
+    this.taskEdited.next(task);
   }
 
   onTaskEdit(taskToEdit, newTask) {
@@ -24,6 +28,7 @@ export class TaskListService {
     this.taskList[taskID].description = newTask.description;
     this.taskList[taskID].date = newTask.date;
     this.taskList[taskID].priority = newTask.priority;
+    this.taskEdited.next(this.taskList[taskID]);
   }
 
   getTasks(taskType) {
@@ -64,7 +69,6 @@ export class TaskListService {
   }
 
   deleteTasksOfProject(taskList) {
-    console.log(taskList);
     taskList.forEach((task) => {
       this.taskList.splice(this.taskList.indexOf(task), 1);
     });
@@ -81,16 +85,5 @@ export class TaskListService {
       }
     });
     this.taskList = importedTasks;
-    console.log(this.taskList);
-    // this.postService.fetchPost().subscribe((responseData) => {
-    //   projectList.forEach((project) => {
-    //     if (project.projectTaskList) {
-    //       project.projectTaskList.forEach((elem) => {
-    //         importedTasks.push(elem);
-    //       });
-    //     }
-    //   });
-    //   this.taskList = importedTasks;
-    // });
   }
 }
