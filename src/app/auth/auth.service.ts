@@ -1,6 +1,13 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { catchError, Observable, Subject, tap, throwError } from "rxjs";
+import {
+  BehaviorSubject,
+  catchError,
+  Observable,
+  Subject,
+  tap,
+  throwError,
+} from "rxjs";
 import { User } from "./user/user.model";
 
 export interface AuthResponseData {
@@ -18,7 +25,7 @@ export interface AuthResponseData {
 export class AuthService {
   constructor(private http: HttpClient) {}
 
-  user = new Subject<User>();
+  user = new BehaviorSubject<User>(null);
   isLoggedIn = new Subject<boolean>();
 
   signUp(email: string, password: string) {
