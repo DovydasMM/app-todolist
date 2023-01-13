@@ -1,12 +1,14 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"],
 })
 export class AppComponent {
-  title = 'TodoList App';
+  constructor(private router: Router) {}
+  title = "TodoList App";
   menuOpen = true;
   darkMode: boolean = false;
 
@@ -15,6 +17,7 @@ export class AppComponent {
   }
 
   onToggleMode() {
-    this.darkMode = this.darkMode ? false : true;
+    this.router.navigate(["/auth"]);
+    // this.darkMode = this.darkMode ? false : true;
   }
 }

@@ -57,8 +57,6 @@ export class TaskListService {
             Date.parse(task.date) <= Date.parse(nextWeek)
         );
         return { name: "Nex 7 Days", taskList: weekTasks };
-      default:
-        this.router.navigate(["/not-found"]);
     }
   }
 

@@ -79,6 +79,7 @@ export class ProjectsService {
     this.postService.fetchPost().subscribe((responseData) => {
       this.projectList = responseData;
       this.taskService.importTasks(this.projectList);
+      console.log(responseData);
     });
 
     this.taskService.taskEdited.subscribe((task) => {
