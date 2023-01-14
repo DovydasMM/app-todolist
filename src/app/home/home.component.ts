@@ -3,8 +3,8 @@ import { TaskListService } from "../task-list.service";
 import { Task } from "../task";
 import { ActivatedRoute } from "@angular/router";
 import { ProjectsService } from "../projects.service";
-
 import { AuthService } from "../auth/auth.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-home",
@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private taskService: TaskListService,
     private route: ActivatedRoute,
+    private router: Router,
     private projectService: ProjectsService,
     private authService: AuthService
   ) {}
@@ -24,6 +25,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.authService.isLoggedIn.subscribe((responseData) => {
       this.projectService.importProject();
+      // this.router.navigate(["/all"]);
     });
     // this.taskService.importTasks();
   }

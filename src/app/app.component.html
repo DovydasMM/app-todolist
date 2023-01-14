@@ -9,7 +9,10 @@
     </div>
     <h1>{{ title }}</h1>
     <div>
-      <button (click)="onToggleMode()">Toggle mode</button>
+      <button (click)="onToggleMode()" class="header-login">
+        {{ isLoggedIn ? "Log Out" : " Log In"
+        }}<span><i class="bi bi-box-arrow-in-right"></i></span>
+      </button>
     </div>
   </header>
   <div class="mainBody">

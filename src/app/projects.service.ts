@@ -37,15 +37,13 @@ export class ProjectsService {
     );
     this.projectList.push(newProject);
     this.router.navigate([`/projects/${this.projectList.length}`]);
-    this.postService
-      .createAndStorePost(newProject)
-      .subscribe((responseData) => {
-        newProject.id = responseData;
-        //Gets unique ID from firebase and asigns to new project
-        this.postService
-          .updatePost(responseData, { id: responseData })
-          .subscribe();
-      });
+    this.postService.postProject(newProject).subscribe((responseData) => {
+      newProject.id = responseData;
+      //Gets unique ID from firebase and asigns to new project
+      this.postService
+        .updatePost(responseData, { id: responseData })
+        .subscribe();
+    });
   }
 
   addTask(currentProject, name, desc, date) {
@@ -79,7 +77,7 @@ export class ProjectsService {
     this.postService.fetchPost().subscribe((responseData) => {
       this.projectList = responseData;
       this.taskService.importTasks(this.projectList);
-      console.log(responseData);
+      this.router.navigate(["/all"]);
     });
 
     this.taskService.taskEdited.subscribe((task) => {

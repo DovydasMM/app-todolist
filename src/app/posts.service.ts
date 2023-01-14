@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Project } from "./shared/task/project.model";
-import { map } from "rxjs";
+import { map, tap } from "rxjs";
 import { Router } from "@angular/router";
 
 @Injectable({
@@ -10,10 +10,27 @@ import { Router } from "@angular/router";
 export class PostsService {
   constructor(private http: HttpClient, private router: Router) {}
 
+  currentUserId: string;
+
   createAndStorePost(project: Project) {
     return this.http
+      .put(
+        `https://poor-mans-todo-default-rtdb.europe-west1.firebasedatabase.app/usersData/${this.currentUserId}.json`,
+        project
+      )
+      .pipe(
+        map((responseData) => {
+          for (const key in responseData) {
+            return responseData[key];
+          }
+        })
+      );
+  }
+
+  postProject(project) {
+    return this.http
       .post(
-        "https://poor-mans-todo-default-rtdb.europe-west1.firebasedatabase.app/posts.json",
+        `https://poor-mans-todo-default-rtdb.europe-west1.firebasedatabase.app/usersData/${this.currentUserId}/projectList.json`,
         project
       )
       .pipe(
@@ -28,14 +45,13 @@ export class PostsService {
   fetchPost() {
     return this.http
       .get(
-        "https://poor-mans-todo-default-rtdb.europe-west1.firebasedatabase.app/posts.json"
+        `https://poor-mans-todo-default-rtdb.europe-west1.firebasedatabase.app/usersData/${this.currentUserId}/projectList.json`
       )
       .pipe<Project[]>(
         map((responseData) => {
+          console.log(responseData);
           const projectArray = [];
           for (const key in responseData) {
-            console.log(responseData[key].hasOwnProperty("projectTaskList"));
-
             if (
               responseData.hasOwnProperty(key) &&
               !responseData[key].hasOwnProperty("projectTaskList")
@@ -61,17 +77,33 @@ export class PostsService {
       .subscribe((responseData) => this.router.navigate(["/all"]));
   }
 
+  //Attaches POST Id to the project
   updatePost(projectID: string, newProjectId) {
     return this.http.patch(
-      `https://poor-mans-todo-default-rtdb.europe-west1.firebasedatabase.app/posts/${projectID}.json`,
+      `https://poor-mans-todo-default-rtdb.europe-west1.firebasedatabase.app/usersData/${this.currentUserId}/projectList/${projectID}.json`,
       newProjectId
     );
   }
 
   updateProject(projectChange) {
     return this.http.patch(
-      `https://poor-mans-todo-default-rtdb.europe-west1.firebasedatabase.app/posts/${projectChange.id}.json`,
+      `https://poor-mans-todo-default-rtdb.europe-west1.firebasedatabase.app/usersData/${this.currentUserId}/projectList/${projectChange.id}.json`,
       projectChange
     );
+  }
+
+  createUserDatabase(userId: string) {
+    console.log(userId);
+    let newData = JSON.stringify(userId);
+    return this.http
+      .put(
+        `https://poor-mans-todo-default-rtdb.europe-west1.firebasedatabase.app/usersData/${userId}.json`,
+        newData
+      )
+      .pipe(
+        tap((resData) => {
+          this.currentUserId = userId;
+        })
+      );
   }
 }

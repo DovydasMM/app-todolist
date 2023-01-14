@@ -3,6 +3,7 @@
   --bgColor1: #ececec;
   --bgColor2: white;
   --bgColor3: #22303c;
+  --bgColor4: #2abd67;
   color: black;
   font-weight: 600;
   /*
@@ -167,4 +168,19 @@ a {
 /*Star color*/
 .bi.bi-star-fill {
   color: #f6ae2d;
+}
+
+.bi.bi-box-arrow-in-right {
+  font-size: 24px;
+}
+
+.header-login {
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  background-color: var(--bgColor4);
+  border: none;
+  border-radius: 3px;
+  gap: 12px;
+  font-size: 16px;
 }

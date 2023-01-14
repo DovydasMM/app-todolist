@@ -1,3 +1,4 @@
+import { PostsService } from "./../posts.service";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import {
@@ -23,7 +24,7 @@ export interface AuthResponseData {
   providedIn: "root",
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private postService: PostsService) {}
 
   user = new BehaviorSubject<User>(null);
   isLoggedIn = new Subject<boolean>();
@@ -44,12 +45,14 @@ export class AuthService {
             resData.idToken,
             +resData.expiresIn
           );
+          this.postService
+            .createUserDatabase(resData.localId)
+            .subscribe((resData) => console.log(resData));
         })
       );
   }
 
   logIn(email: string, password: string) {
-    console.log("logIn() called");
     return this.http
       .post<AuthResponseData>(
         `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=
@@ -59,7 +62,7 @@ export class AuthService {
       .pipe(
         catchError(this.handleError),
         tap((resData) => {
-          console.log("this should work");
+          this.postService.currentUserId = resData.localId;
           this.handleAuthentication(
             resData.email,
             resData.localId,
@@ -80,7 +83,6 @@ export class AuthService {
     token: string,
     expiresIn: number
   ) {
-    console.log("Door stuck");
     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
     const user = new User(email, userId, token, expirationDate);
     this.user.next(user);
