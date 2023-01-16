@@ -35,8 +35,8 @@
   </div>
   <div class="sidebar-element">
     <span class="sidebar-title">Projects</span>
-
-    <ul>
+    <app-load-spinner *ngIf="isLoading"> </app-load-spinner>
+    <ul *ngIf="!isLoading">
       <li
         class="sidebar-items"
         [routerLink]="['/projects', i + 1]"

@@ -18,6 +18,8 @@ export class SidebarComponent implements OnInit, DoCheck {
     private router: Router
   ) {}
 
+  isLoading = false;
+
   onCreate() {
     this.projectService.createProject(this.nameInputRef.nativeElement.value);
     this.createProject = false;
@@ -29,11 +31,18 @@ export class SidebarComponent implements OnInit, DoCheck {
 
   ngOnInit(): void {
     this.projectList = this.projectService.getProjectList();
+    this.projectService.isLoading.subscribe((resData) => {
+      this.isLoading = true;
+      setTimeout(this.toggleLoading.bind(this), 1000);
+    });
   }
 
   onDelete(project) {
     this.projectService.deleteProject(project);
-    // this.router.navigate(['/all']);
+  }
+
+  toggleLoading() {
+    this.isLoading = false;
   }
 
   ngDoCheck(): void {

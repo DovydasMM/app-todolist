@@ -4,7 +4,6 @@ import { Router } from "@angular/router";
 import { Project } from "./shared/task/project.model";
 import { PostsService } from "./posts.service";
 import { Observable, Subject } from "rxjs";
-import { TaskModel } from "./shared/task/task.model";
 
 @Injectable({
   providedIn: "root",

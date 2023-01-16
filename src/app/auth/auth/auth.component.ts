@@ -43,7 +43,6 @@ export class AuthComponent {
     authObs.subscribe(
       (responseData) => {
         if (!this.isLoggedIn) {
-          console.log(responseData);
           this.authService.loggedIn();
           this.isLoggedIn = true;
         }

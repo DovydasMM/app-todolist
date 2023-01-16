@@ -1,13 +1,7 @@
-import {
-  Component,
-  ElementRef,
-  OnInit,
-  ViewChild,
-  ɵɵsetComponentScope,
-} from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { ProjectsService } from "src/app/projects.service";
-import { Task } from "src/app/task";
+
 import { Project } from "src/app/shared/task/project.model";
 
 @Component({
@@ -52,5 +46,6 @@ export class ProjectTasksComponent implements OnInit {
           +this.route.snapshot.params["id"] - 1
         ))
     );
+    console.log(this.currentProject);
   }
 }

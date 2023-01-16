@@ -25,15 +25,25 @@ export class ImportantComponent implements OnInit, DoCheck {
 
   taskType;
   tasks;
+  isLoading = false;
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
       this.taskType = this.route.snapshot.params["type"];
       this.tasks = this.taskService.getTasks(this.taskType);
     });
+
+    this.projectService.isLoading.subscribe((resData) => {
+      this.isLoading = true;
+      setTimeout(this.toggleLoading.bind(this), 1000);
+    });
   }
 
   ngDoCheck(): void {
     this.tasks = this.taskService.getTasks(this.taskType);
+  }
+
+  toggleLoading() {
+    this.isLoading = false;
   }
 }

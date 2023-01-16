@@ -31,6 +31,7 @@ export class AppComponent implements OnInit {
     if (this.isLoggedIn) {
       this.authService.logOut();
       this.projectService.clearProjects();
+      this.router.navigate(["/all"]);
     }
   }
   ngOnInit(): void {

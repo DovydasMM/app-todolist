@@ -1,3 +1,4 @@
+import { Subject } from "rxjs";
 import { Injectable } from "@angular/core";
 import { Project } from "./shared/task/project.model";
 import { TaskModel } from "./shared/task/task.model";
@@ -16,14 +17,74 @@ export class ProjectsService {
     private postService: PostsService
   ) {}
 
+  isLoggedIn = false;
+  isLoading = new Subject<boolean>();
+
   projectList: Project[];
 
+  temporaryProjects: Project[] = [
+    {
+      projectName: "Studying for University",
+      id: `0`,
+      projectTaskList: [
+        {
+          name: "Read Course Material",
+          description:
+            " Read through the course material for the upcoming exam",
+          priority: true,
+          date: new Date("2023-01-16").toISOString().slice(0, 10),
+        },
+        {
+          name: "Practice Questions",
+          description: " Work through practice questions for the upcoming exam",
+          priority: true,
+          date: new Date("2023-01-22").toISOString().slice(0, 10),
+        },
+        {
+          name: "Review Notes",
+          description:
+            " Review notes from previous lectures and any supplemental materials",
+          priority: false,
+          date: new Date("2023-01-27").toISOString().slice(0, 10),
+        },
+      ],
+    },
+    {
+      projectName: "House chores",
+      id: `1`,
+      projectTaskList: [
+        {
+          name: "Clean kitchen",
+          description: "Clean kitchen surfaces and floors, and put away dishes",
+          priority: true,
+          date: new Date("2023-01-16").toISOString().slice(0, 10),
+        },
+        {
+          name: "Vacuum the living room",
+          description:
+            " Vacuum the living room and move furniture to get into all the crevices",
+          priority: false,
+          date: new Date("2023-01-19").toISOString().slice(0, 10),
+        },
+      ],
+    },
+  ];
+
   getProjectList() {
-    return this.projectList;
+    if (this.isLoggedIn) return this.projectList;
+    else {
+      this.projectList = this.temporaryProjects;
+      this.taskService.importTasks(this.projectList);
+      return this.projectList;
+    }
   }
 
   getProjectByID(id) {
-    return this.projectList[id];
+    if (this.isLoggedIn) return this.projectList[id];
+    else {
+      this.projectList = this.temporaryProjects;
+      return this.temporaryProjects[id];
+    }
   }
 
   createProject(name) {
@@ -75,6 +136,8 @@ export class ProjectsService {
 
   importProject() {
     this.postService.fetchPost().subscribe((responseData) => {
+      console.log(responseData);
+      this.isLoggedIn = true;
       this.projectList = responseData;
       this.taskService.importTasks(this.projectList);
       this.router.navigate(["/all"]);
@@ -95,7 +158,9 @@ export class ProjectsService {
 
   clearProjects() {
     this.projectList = [];
+    this.isLoggedIn = false;
     this.taskService.clearTaskList();
     this.postService.clearUserId();
+    this.isLoading.next(true);
   }
 }

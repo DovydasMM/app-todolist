@@ -1,2 +1,8 @@
-<p class="container-projectName">{{ tasks.name }}</p>
-<app-task *ngFor="let taskItem of tasks.taskList" [task]="taskItem"></app-task>
+<div *ngIf="!isLoading">
+  <p class="container-projectName">{{ tasks.name }}</p>
+  <app-task
+    *ngFor="let taskItem of tasks.taskList"
+    [task]="taskItem"
+  ></app-task>
+</div>
+<app-load-spinner *ngIf="isLoading"> </app-load-spinner>

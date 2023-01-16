@@ -10,16 +10,13 @@ import { TaskListService } from "../task-list.service";
   styleUrls: ["./projects.component.css"],
 })
 export class ProjectsComponent implements OnInit {
-  constructor(
-    private taskService: TaskListService,
-    private projectService: ProjectsService,
-    private route: ActivatedRoute
-  ) {}
+  constructor(private projectService: ProjectsService) {}
 
   title;
   projectList: Project[];
 
   ngOnInit(): void {
     this.projectList = this.projectService.getProjectList();
+    console.log(this.projectList);
   }
 }

@@ -78,7 +78,6 @@ export class AuthService {
 
   logOut() {
     this.user.next(null);
-
     this.isLoggedIn.next(false);
   }
 
