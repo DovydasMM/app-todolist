@@ -84,4 +84,8 @@ export class TaskListService {
     });
     this.taskList = importedTasks;
   }
+
+  clearTaskList() {
+    this.taskList = [];
+  }
 }

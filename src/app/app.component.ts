@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { AuthService } from "./auth/auth.service";
+import { ProjectsService } from "./projects.service";
 
 @Component({
   selector: "app-root",
@@ -8,7 +9,11 @@ import { AuthService } from "./auth/auth.service";
   styleUrls: ["./app.component.css"],
 })
 export class AppComponent implements OnInit {
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(
+    private projectService: ProjectsService,
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
   title = "TodoList App";
   menuOpen = true;
@@ -19,15 +24,24 @@ export class AppComponent implements OnInit {
     this.menuOpen = this.menuOpen ? false : true;
   }
 
-  onToggleMode() {
-    this.router.navigate(["/auth"]);
-    // this.darkMode = this.darkMode ? false : true;
+  toggleLog() {
+    if (!this.isLoggedIn) {
+      this.router.navigate(["/auth"]);
+    }
+    if (this.isLoggedIn) {
+      this.authService.logOut();
+      this.projectService.clearProjects();
+    }
   }
   ngOnInit(): void {
-    console.log(this.isLoggedIn);
-    this.authService.isLoggedIn.subscribe((resData) => {
-      console.log(resData);
-      this.isLoggedIn = resData;
+    this.authService.isLoggedIn.subscribe((responseData) => {
+      if (responseData) {
+        this.isLoggedIn = true;
+        this.projectService.importProject();
+      }
+      if (!responseData) {
+        this.isLoggedIn = false;
+      }
     });
   }
 }

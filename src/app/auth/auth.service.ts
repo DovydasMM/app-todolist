@@ -28,6 +28,7 @@ export class AuthService {
 
   user = new BehaviorSubject<User>(null);
   isLoggedIn = new Subject<boolean>();
+  isLoggedOff = true;
 
   signUp(email: string, password: string) {
     return this.http
@@ -45,9 +46,7 @@ export class AuthService {
             resData.idToken,
             +resData.expiresIn
           );
-          this.postService
-            .createUserDatabase(resData.localId)
-            .subscribe((resData) => console.log(resData));
+          this.postService.createUserDatabase(resData.localId).subscribe();
         })
       );
   }
@@ -75,6 +74,12 @@ export class AuthService {
 
   loggedIn() {
     this.isLoggedIn.next(true);
+  }
+
+  logOut() {
+    this.user.next(null);
+
+    this.isLoggedIn.next(false);
   }
 
   private handleAuthentication(

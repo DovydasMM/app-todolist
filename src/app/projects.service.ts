@@ -92,4 +92,10 @@ export class ProjectsService {
 
     this.postService.updateProject(project).subscribe();
   }
+
+  clearProjects() {
+    this.projectList = [];
+    this.taskService.clearTaskList();
+    this.postService.clearUserId();
+  }
 }

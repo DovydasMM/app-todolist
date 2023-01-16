@@ -22,11 +22,5 @@ export class HomeComponent implements OnInit {
   title = "All tasks";
   tasks: Task[];
 
-  ngOnInit(): void {
-    this.authService.isLoggedIn.subscribe((responseData) => {
-      this.projectService.importProject();
-      // this.router.navigate(["/all"]);
-    });
-    // this.taskService.importTasks();
-  }
+  ngOnInit(): void {}
 }

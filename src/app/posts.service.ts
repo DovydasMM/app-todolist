@@ -49,7 +49,6 @@ export class PostsService {
       )
       .pipe<Project[]>(
         map((responseData) => {
-          console.log(responseData);
           const projectArray = [];
           for (const key in responseData) {
             if (
@@ -72,7 +71,7 @@ export class PostsService {
   deletePost(projectID: string) {
     this.http
       .delete(
-        `https://poor-mans-todo-default-rtdb.europe-west1.firebasedatabase.app/posts/${projectID}.json`
+        `https://poor-mans-todo-default-rtdb.europe-west1.firebasedatabase.app/usersData/${this.currentUserId}/projectList/${projectID}.json`
       )
       .subscribe((responseData) => this.router.navigate(["/all"]));
   }
@@ -93,7 +92,6 @@ export class PostsService {
   }
 
   createUserDatabase(userId: string) {
-    console.log(userId);
     let newData = JSON.stringify(userId);
     return this.http
       .put(
@@ -105,5 +103,9 @@ export class PostsService {
           this.currentUserId = userId;
         })
       );
+  }
+
+  clearUserId() {
+    this.currentUserId = "";
   }
 }

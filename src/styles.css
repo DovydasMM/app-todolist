@@ -5,7 +5,6 @@
   --bgColor3: #22303c;
   --bgColor4: #2abd67;
   color: black;
-  font-weight: 600;
   /*
   --bgColorPopUp: #273746;
   --textColor: #eaebec;
@@ -172,15 +171,67 @@ a {
 
 .bi.bi-box-arrow-in-right {
   font-size: 24px;
+  margin-left: 12px;
+}
+
+.bi.bi-box-arrow-left {
+  font-size: 24px;
+  margin-right: 12px;
 }
 
 .header-login {
-  padding: 6px;
-  display: flex;
-  align-items: center;
   background-color: var(--bgColor4);
+  display: flex;
+  color: #ffffff;
+  border: 0;
+  padding: 10px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 5px;
+  box-shadow: 0 0 10px #000000;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.header-title span {
+  color: var(--bgColor4);
+}
+
+.header-title {
+  margin: 0;
+  font-size: 36px;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.bi.bi-check-circle {
+  font-size: 24px;
+  margin-right: 3px;
+}
+
+.form-container {
+  margin: 20px auto;
+  width: 300px;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+.form-container label {
+  display: block;
+  margin-bottom: 10px;
+}
+.form-container input {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+.form-container button {
+  background-color: #4caf50;
+  color: white;
+  padding: 8px;
   border: none;
-  border-radius: 3px;
-  gap: 12px;
-  font-size: 16px;
+}
+
+.form-container.spinner {
+  border: none;
 }

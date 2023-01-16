@@ -13,8 +13,8 @@ export class AuthComponent {
   constructor(private authService: AuthService, private router: Router) {}
   isLoginMode = true;
   isLoading = false;
+  isLoggedIn = false;
   loggedIn = new Subject<boolean>();
-
   errorMessage: string;
 
   onModeChange() {
@@ -33,6 +33,7 @@ export class AuthComponent {
     error: String;
 
     if (this.isLoginMode) {
+      console.log("here called");
       authObs = this.authService.logIn(email, password);
     }
     if (!this.isLoginMode) {
@@ -41,9 +42,11 @@ export class AuthComponent {
 
     authObs.subscribe(
       (responseData) => {
-        this.isLoading = false;
-        this.authService.loggedIn();
-        this.loggedIn.next(true);
+        if (!this.isLoggedIn) {
+          console.log(responseData);
+          this.authService.loggedIn();
+          this.isLoggedIn = true;
+        }
       },
       (errorRes) => {
         this.isLoading = false;

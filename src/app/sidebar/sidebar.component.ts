@@ -29,7 +29,6 @@ export class SidebarComponent implements OnInit, DoCheck {
 
   ngOnInit(): void {
     this.projectList = this.projectService.getProjectList();
-    console.log(this.projectList);
   }
 
   onDelete(project) {
