@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Project } from "./shared/task/project.model";
+import { Project } from "../shared/models/project.model";
 import { map, tap } from "rxjs";
 import { Router } from "@angular/router";
 

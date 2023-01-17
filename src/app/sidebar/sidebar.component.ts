@@ -1,6 +1,6 @@
 import { Component, DoCheck, OnInit, Output, ViewChild } from "@angular/core";
-import { ProjectsService } from "../projects.service";
-import { Project } from "../shared/task/project.model";
+import { ProjectsService } from "../services/projects.service";
+import { Project } from "../shared/models/project.model";
 import { ElementRef } from "@angular/core";
 import { Router } from "@angular/router";
 

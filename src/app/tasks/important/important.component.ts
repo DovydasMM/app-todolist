@@ -1,15 +1,7 @@
-import {
-  Component,
-  DoCheck,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-} from "@angular/core";
-import { TaskListService } from "src/app/task-list.service";
-import { Task } from "src/app/task";
+import { Component, DoCheck, OnInit } from "@angular/core";
+import { TaskListService } from "src/app/services/task-list.service";
 import { ActivatedRoute, Params } from "@angular/router";
-import { ProjectsService } from "src/app/projects.service";
-import { Project } from "src/app/project";
+import { ProjectsService } from "src/app/services/projects.service";
 
 @Component({
   selector: "app-important",

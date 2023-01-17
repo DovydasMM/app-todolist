@@ -1,9 +1,8 @@
 import { Subject } from "rxjs";
 import { Injectable } from "@angular/core";
-import { Project } from "./shared/task/project.model";
-import { TaskModel } from "./shared/task/task.model";
+import { Project } from "../shared/models/project.model";
+import { TaskModel } from "../shared/models/task.model";
 import { TaskListService } from "./task-list.service";
-import { Task } from "./task";
 import { Router } from "@angular/router";
 import { PostsService } from "./posts.service";
 

@@ -1,11 +1,10 @@
 import { Component, OnInit } from "@angular/core";
-import { TaskListService } from "../task-list.service";
-import { Task } from "../task";
+import { TaskListService } from "../services/task-list.service";
 import { ActivatedRoute, NavigationEnd, RouterEvent } from "@angular/router";
-import { ProjectsService } from "../projects.service";
+import { ProjectsService } from "../services/projects.service";
 import { AuthService } from "../auth/auth.service";
 import { Router } from "@angular/router";
-import { filter } from "rxjs";
+import { Task } from "../shared/interfaces/task";
 
 @Component({
   selector: "app-home",

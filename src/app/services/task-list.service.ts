@@ -1,9 +1,9 @@
+import { Task } from "../shared/interfaces/task";
 import { Injectable } from "@angular/core";
-import { Task } from "./task";
 import { Router } from "@angular/router";
-import { Project } from "./shared/task/project.model";
+import { Project } from "../shared/models/project.model";
 import { PostsService } from "./posts.service";
-import { Observable, Subject } from "rxjs";
+import { Subject } from "rxjs";
 
 @Injectable({
   providedIn: "root",

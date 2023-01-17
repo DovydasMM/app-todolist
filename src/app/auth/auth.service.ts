@@ -1,4 +1,4 @@
-import { PostsService } from "./../posts.service";
+import { PostsService } from "../services/posts.service";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import {

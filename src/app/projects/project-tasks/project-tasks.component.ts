@@ -1,8 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { ProjectsService } from "src/app/projects.service";
+import { ProjectsService } from "src/app/services/projects.service";
 
-import { Project } from "src/app/shared/task/project.model";
+import { Project } from "src/app/shared/models/project.model";
 
 @Component({
   selector: "app-project-tasks",

@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { ProjectsService } from "../projects.service";
-import { Project } from "../shared/task/project.model";
-import { TaskListService } from "../task-list.service";
+import { ProjectsService } from "../services/projects.service";
+import { Project } from "../shared/models/project.model";
+import { TaskListService } from "../services/task-list.service";
 
 @Component({
   selector: "app-projects",

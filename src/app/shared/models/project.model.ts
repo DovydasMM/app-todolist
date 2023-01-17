@@ -1,4 +1,4 @@
-import { Task } from "src/app/task";
+import { Task } from "src/app/shared/interfaces/task";
 
 export class Project {
   constructor(
