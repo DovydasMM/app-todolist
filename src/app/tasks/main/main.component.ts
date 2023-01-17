@@ -4,11 +4,11 @@ import { ActivatedRoute, Params } from "@angular/router";
 import { ProjectsService } from "src/app/services/projects.service";
 
 @Component({
-  selector: "app-important",
-  templateUrl: "./important.component.html",
-  styleUrls: ["./important.component.css"],
+  selector: "app-main",
+  templateUrl: "./main.component.html",
+  styleUrls: ["./main.component.css"],
 })
-export class ImportantComponent implements OnInit, DoCheck {
+export class MainComponent implements OnInit, DoCheck {
   constructor(
     private taskService: TaskListService,
     private route: ActivatedRoute,

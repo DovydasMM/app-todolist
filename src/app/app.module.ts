@@ -1,15 +1,13 @@
 import { ToggleDropDirective } from "./directives/toggle-drop.directive";
-import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
 import { AppComponent } from "./app.component";
-import { TasksComponent } from "./tasks/tasks.component";
 import { TaskComponent } from "./tasks/task/task.component";
 import { TaskEditComponent } from "./tasks/task-edit/task-edit.component";
 import { SidebarComponent } from "./sidebar/sidebar.component";
 import { RouterModule, Routes } from "@angular/router";
-import { ImportantComponent } from "./tasks/important/important.component";
+import { MainComponent } from "./tasks/main/main.component";
 import { ProjectsComponent } from "./projects/projects.component";
 import { TaskListService } from "./services/task-list.service";
 import { HomeComponent } from "./home/home.component";
@@ -26,9 +24,9 @@ const appRoutes: Routes = [
     component: HomeComponent,
     children: [
       { path: "auth", component: AuthComponent },
-      { path: ":type", component: ImportantComponent },
+      { path: ":type", component: MainComponent },
 
-      { path: "not-found", component: PageNotFoundComponent },
+      // { path: "not-found", component: PageNotFoundComponent },
     ],
   },
 
@@ -42,15 +40,13 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    TasksComponent,
     TaskComponent,
     TaskEditComponent,
     SidebarComponent,
-    ImportantComponent,
+    MainComponent,
     ProjectsComponent,
     HomeComponent,
     ProjectTasksComponent,
-    PageNotFoundComponent,
 
     AuthComponent,
     LoadSpinnerComponent,
