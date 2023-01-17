@@ -5,6 +5,7 @@ import { TaskModel } from "../shared/models/task.model";
 import { TaskListService } from "./task-list.service";
 import { Router } from "@angular/router";
 import { PostsService } from "./posts.service";
+import { AuthService } from "../auth/auth.service";
 
 @Injectable({
   providedIn: "root",
@@ -13,7 +14,8 @@ export class ProjectsService {
   constructor(
     private taskService: TaskListService,
     private router: Router,
-    private postService: PostsService
+    private postService: PostsService,
+    private authService: AuthService
   ) {}
 
   isLoggedIn = false;
@@ -171,8 +173,10 @@ export class ProjectsService {
       const taskID = project.projectTaskList.indexOf(task);
       project.projectTaskList.splice(taskID, 1);
       this.taskService.deleteTask(task);
+
       // If user is not logged in, data will not be saved
       if (!this.isLoggedIn) return;
+
       this.postService.updateProject(project).subscribe();
     } else this.taskService.deleteTask(task);
   }
@@ -189,6 +193,7 @@ export class ProjectsService {
 
   importProject() {
     this.postService.fetchPost().subscribe((responseData) => {
+      this.authService.isLoading.next(false);
       this.isLoggedIn = true;
       this.projectList = responseData;
       this.taskService.importTasks(this.projectList);
@@ -216,7 +221,7 @@ export class ProjectsService {
     this.projectList = this.fillProjects();
     this.isLoggedIn = false;
     this.taskService.clearTaskList();
-    this.postService.clearUserId();
+
     this.isLoading.next(true);
   }
 }

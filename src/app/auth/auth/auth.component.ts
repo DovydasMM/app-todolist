@@ -33,9 +33,11 @@ export class AuthComponent {
     error: String;
 
     if (this.isLoginMode) {
+      this.authService.isLoading.next(true);
       authObs = this.authService.logIn(email, password);
     }
     if (!this.isLoginMode) {
+      this.authService.isLoading.next(true);
       authObs = this.authService.signUp(email, password);
     }
 
@@ -47,6 +49,7 @@ export class AuthComponent {
         }
       },
       (errorRes) => {
+        this.authService.isLoading.next(false);
         this.isLoading = false;
         this.errorMessage = errorRes;
       }

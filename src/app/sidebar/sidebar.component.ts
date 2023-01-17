@@ -1,3 +1,4 @@
+import { AuthService } from "./../auth/auth.service";
 import { Component, DoCheck, OnInit, Output, ViewChild } from "@angular/core";
 import { ProjectsService } from "../services/projects.service";
 import { Project } from "../shared/models/project.model";
@@ -15,7 +16,8 @@ export class SidebarComponent implements OnInit, DoCheck {
   createProject: boolean = false;
   constructor(
     private projectService: ProjectsService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   isLoading = false;
@@ -31,6 +33,9 @@ export class SidebarComponent implements OnInit, DoCheck {
 
   ngOnInit(): void {
     this.projectList = this.projectService.getProjectList();
+    this.authService.isLoading.subscribe((resData) => {
+      this.isLoading = resData;
+    });
     this.projectService.isLoading.subscribe((resData) => {
       this.isLoading = true;
       setTimeout(this.toggleLoading.bind(this), 1000);

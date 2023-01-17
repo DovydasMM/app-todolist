@@ -1,14 +1,7 @@
 import { PostsService } from "../services/posts.service";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import {
-  BehaviorSubject,
-  catchError,
-  Observable,
-  Subject,
-  tap,
-  throwError,
-} from "rxjs";
+import { BehaviorSubject, catchError, Subject, tap, throwError } from "rxjs";
 import { User } from "./user/user.model";
 
 export interface AuthResponseData {
@@ -29,6 +22,7 @@ export class AuthService {
   user = new BehaviorSubject<User>(null);
   isLoggedIn = new Subject<boolean>();
   isLoggedOff = true;
+  isLoading = new Subject<boolean>();
 
   signUp(email: string, password: string) {
     return this.http
