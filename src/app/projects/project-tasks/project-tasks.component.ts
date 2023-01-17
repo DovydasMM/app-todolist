@@ -46,6 +46,5 @@ export class ProjectTasksComponent implements OnInit {
           +this.route.snapshot.params["id"] - 1
         ))
     );
-    console.log(this.currentProject);
   }
 }

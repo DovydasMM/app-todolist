@@ -33,7 +33,6 @@ export class AuthComponent {
     error: String;
 
     if (this.isLoginMode) {
-      console.log("here called");
       authObs = this.authService.logIn(email, password);
     }
     if (!this.isLoginMode) {

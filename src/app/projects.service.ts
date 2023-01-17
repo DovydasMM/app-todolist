@@ -20,7 +20,53 @@ export class ProjectsService {
   isLoggedIn = false;
   isLoading = new Subject<boolean>();
 
-  projectList: Project[];
+  projectList: Project[] = [
+    {
+      projectName: "Studying for University",
+      id: `0`,
+      projectTaskList: [
+        {
+          name: "Read Course Material",
+          description:
+            " Read through the course material for the upcoming exam",
+          priority: true,
+          date: new Date("2023-01-16").toISOString().slice(0, 10),
+        },
+        {
+          name: "Practice Questions",
+          description: " Work through practice questions for the upcoming exam",
+          priority: true,
+          date: new Date("2023-01-22").toISOString().slice(0, 10),
+        },
+        {
+          name: "Review Notes",
+          description:
+            " Review notes from previous lectures and any supplemental materials",
+          priority: false,
+          date: new Date("2023-01-27").toISOString().slice(0, 10),
+        },
+      ],
+    },
+    {
+      projectName: "House chores",
+      id: `1`,
+      projectTaskList: [
+        {
+          name: "Clean kitchen",
+          description: "Clean kitchen surfaces and floors, and put away dishes",
+          priority: true,
+          date: new Date("2023-01-16").toISOString().slice(0, 10),
+        },
+        {
+          name: "Vacuum the living room",
+          description:
+            " Vacuum the living room and move furniture to get into all the crevices",
+          priority: false,
+          date: new Date("2023-01-19").toISOString().slice(0, 10),
+        },
+      ],
+    },
+  ];
 
   temporaryProjects: Project[] = [
     {
@@ -73,7 +119,6 @@ export class ProjectsService {
   getProjectList() {
     if (this.isLoggedIn) return this.projectList;
     else {
-      this.projectList = this.temporaryProjects.slice();
       this.taskService.importTasks(this.projectList);
       return this.projectList;
     }
@@ -82,7 +127,6 @@ export class ProjectsService {
   getProjectByID(id) {
     if (this.isLoggedIn) return this.projectList[id];
     else {
-      this.projectList = this.temporaryProjects.slice();
       return this.projectList[id];
     }
   }
@@ -138,6 +182,7 @@ export class ProjectsService {
     if (project.projectTaskList.length)
       this.taskService.deleteTasksOfProject(project.projectTaskList);
     this.projectList.splice(this.projectList.indexOf(project), 1);
+    this.router.navigate(["/all"]);
     // If user is not logged in, data will not be saved
     if (!this.isLoggedIn) return;
     this.postService.deletePost(project.id);
@@ -145,7 +190,6 @@ export class ProjectsService {
 
   importProject() {
     this.postService.fetchPost().subscribe((responseData) => {
-      console.log(responseData);
       this.isLoggedIn = true;
       this.projectList = responseData;
       this.taskService.importTasks(this.projectList);
@@ -165,8 +209,12 @@ export class ProjectsService {
     this.postService.updateProject(project).subscribe();
   }
 
+  fillProjects() {
+    return structuredClone(this.temporaryProjects);
+  }
+
   clearProjects() {
-    this.projectList = [];
+    this.projectList = this.fillProjects();
     this.isLoggedIn = false;
     this.taskService.clearTaskList();
     this.postService.clearUserId();
