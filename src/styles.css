@@ -235,3 +235,44 @@ a {
 .form-container.spinner {
   border: none;
 }
+
+.menu-container {
+  position: relative;
+}
+
+.menu-toggler {
+}
+
+.menu {
+  background-color: var(--bgColor1);
+  border-radius: 5px;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+  border: 1px solid;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  bottom: 100%;
+  right: 1%;
+}
+
+.menu-item {
+  z-index: 1;
+  padding: 3px 12px;
+  font-weight: bold;
+}
+
+a.menu-item:hover {
+  text-decoration: underline;
+  color: inherit;
+}
+
+.menu::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 80%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+}

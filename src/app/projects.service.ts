@@ -73,7 +73,7 @@ export class ProjectsService {
   getProjectList() {
     if (this.isLoggedIn) return this.projectList;
     else {
-      this.projectList = this.temporaryProjects;
+      this.projectList = this.temporaryProjects.slice();
       this.taskService.importTasks(this.projectList);
       return this.projectList;
     }
@@ -82,8 +82,8 @@ export class ProjectsService {
   getProjectByID(id) {
     if (this.isLoggedIn) return this.projectList[id];
     else {
-      this.projectList = this.temporaryProjects;
-      return this.temporaryProjects[id];
+      this.projectList = this.temporaryProjects.slice();
+      return this.projectList[id];
     }
   }
 
@@ -98,6 +98,9 @@ export class ProjectsService {
     );
     this.projectList.push(newProject);
     this.router.navigate([`/projects/${this.projectList.length}`]);
+
+    // If user is not logged in, data will not be saved
+    if (!this.isLoggedIn) return;
     this.postService.postProject(newProject).subscribe((responseData) => {
       newProject.id = responseData;
       //Gets unique ID from firebase and asigns to new project
@@ -112,6 +115,8 @@ export class ProjectsService {
     const newTask = new TaskModel(name, desc, date, false);
     this.projectList[projectID].projectTaskList.push(newTask);
     this.taskService.taskList.push(newTask);
+    // If user is not logged in, data will not be saved
+    if (!this.isLoggedIn) return;
     this.postService.updateProject(currentProject).subscribe();
   }
 
@@ -122,16 +127,20 @@ export class ProjectsService {
       );
       const taskID = project.projectTaskList.indexOf(task);
       project.projectTaskList.splice(taskID, 1);
-      this.postService.updateProject(project).subscribe();
       this.taskService.deleteTask(task);
+      // If user is not logged in, data will not be saved
+      if (!this.isLoggedIn) return;
+      this.postService.updateProject(project).subscribe();
     } else this.taskService.deleteTask(task);
   }
 
   deleteProject(project: Project) {
-    this.postService.deletePost(project.id);
     if (project.projectTaskList.length)
       this.taskService.deleteTasksOfProject(project.projectTaskList);
     this.projectList.splice(this.projectList.indexOf(project), 1);
+    // If user is not logged in, data will not be saved
+    if (!this.isLoggedIn) return;
+    this.postService.deletePost(project.id);
   }
 
   importProject() {

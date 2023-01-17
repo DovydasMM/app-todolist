@@ -13,6 +13,7 @@ export class TaskComponent implements OnInit {
   @Input() task: Task;
 
   editTask: boolean = false;
+  isMenuOpen: boolean = false;
 
   constructor(
     private taskService: TaskListService,
@@ -27,8 +28,22 @@ export class TaskComponent implements OnInit {
     this.taskService.togglePriority(task);
   }
 
+  toggleMenu() {
+    if (this.isMenuOpen == false && this.editTask == true) {
+      this.editTask = false;
+      return;
+    }
+    this.isMenuOpen = !this.isMenuOpen;
+    this.editTask = false;
+  }
+
+  clickedOutside() {
+    this.isMenuOpen = false;
+  }
+
   onEdit(task: Task) {
     this.editTask = this.editTask ? false : true;
+    this.isMenuOpen = false;
   }
 
   onSave() {

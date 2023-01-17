@@ -14,14 +14,18 @@
         <span *ngIf="!task.priority"> <i class="bi bi-star"></i></span>
       </div>
 
-      <div class="btn-group" appDropdown>
-        <span class="dropdown-toggle">
+      <div
+        class="menu-container"
+        appToggleDrop
+        (clickOutside)="clickedOutside()"
+      >
+        <span class="menu-toggler" (click)="toggleMenu()">
           <i class="bi bi-three-dots-vertical"></i>
         </span>
-        <ul class="dropdown-menu">
-          <li><a (click)="onEdit(task)">Edit</a></li>
-          <li><a (click)="onDelete(task)">Delete</a></li>
-        </ul>
+        <div class="menu" *ngIf="isMenuOpen">
+          <a (click)="onEdit(task)" class="menu-item">Edit</a>
+          <a (click)="onDelete(task)" class="menu-item">Delete</a>
+        </div>
       </div>
     </div>
   </li>

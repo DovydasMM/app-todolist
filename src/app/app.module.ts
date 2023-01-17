@@ -19,6 +19,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AuthComponent } from "./auth/auth/auth.component";
 import { LoadSpinnerComponent } from "./shared/load-spinner/load-spinner/load-spinner.component";
 import { AuthInterceptorService } from "./auth/auth-interceptor.service";
+import { ToggleDropDirective } from './shared/toggle-drop.directive';
 
 const appRoutes: Routes = [
   {
@@ -54,6 +55,7 @@ const appRoutes: Routes = [
     DropdownDirective,
     AuthComponent,
     LoadSpinnerComponent,
+    ToggleDropDirective,
   ],
   imports: [
     BrowserModule,
