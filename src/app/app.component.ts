@@ -44,5 +44,6 @@ export class AppComponent implements OnInit {
         this.isLoggedIn = false;
       }
     });
+    this.router.navigate(["/all"]);
   }
 }
