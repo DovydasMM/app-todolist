@@ -72,6 +72,7 @@ export class AuthService {
 
   logOut() {
     this.user.next(null);
+    this.postService.clearUserId();
     this.isLoggedIn.next(false);
   }
 

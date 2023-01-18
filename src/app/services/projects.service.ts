@@ -20,6 +20,7 @@ export class ProjectsService {
 
   isLoggedIn = false;
   isLoading = new Subject<boolean>();
+  projectChanged = new Subject<Project[]>();
 
   projectList: Project[] = [
     {
@@ -118,8 +119,9 @@ export class ProjectsService {
   ];
 
   getProjectList() {
-    if (this.isLoggedIn) return this.projectList;
-    else {
+    if (this.isLoggedIn) {
+      return this.projectList;
+    } else {
       this.taskService.importTasks(this.projectList);
       return this.projectList;
     }
@@ -195,9 +197,11 @@ export class ProjectsService {
     this.postService.fetchPost().subscribe((responseData) => {
       this.authService.isLoading.next(false);
       this.isLoggedIn = true;
+      console.log(responseData);
       this.projectList = responseData;
       this.taskService.importTasks(this.projectList);
       this.router.navigate(["/all"]);
+      console.log(this.projectList);
     });
 
     this.taskService.taskEdited.subscribe((task) => {
@@ -219,9 +223,9 @@ export class ProjectsService {
 
   clearProjects() {
     this.projectList = this.fillProjects();
+    this.projectChanged.next(this.projectList);
     this.isLoggedIn = false;
     this.taskService.clearTaskList();
-
     this.isLoading.next(true);
   }
 }

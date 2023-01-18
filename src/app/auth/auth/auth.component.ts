@@ -3,6 +3,7 @@ import { Component } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { Observable, Subject } from "rxjs";
 import { AuthResponseData, AuthService } from "../auth.service";
+import { ProjectsService } from "src/app/services/projects.service";
 
 @Component({
   selector: "app-auth",
@@ -10,7 +11,11 @@ import { AuthResponseData, AuthService } from "../auth.service";
   styleUrls: ["./auth.component.css"],
 })
 export class AuthComponent {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private projectService: ProjectsService
+  ) {}
   isLoginMode = true;
   isLoading = false;
   isLoggedIn = false;

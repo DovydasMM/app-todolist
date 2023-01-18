@@ -1,5 +1,12 @@
 import { AuthService } from "./../auth/auth.service";
-import { Component, DoCheck, OnInit, Output, ViewChild } from "@angular/core";
+import {
+  Component,
+  DoCheck,
+  OnChanges,
+  OnInit,
+  Output,
+  ViewChild,
+} from "@angular/core";
 import { ProjectsService } from "../services/projects.service";
 import { Project } from "../shared/models/project.model";
 import { ElementRef } from "@angular/core";
@@ -33,12 +40,16 @@ export class SidebarComponent implements OnInit, DoCheck {
 
   ngOnInit(): void {
     this.projectList = this.projectService.getProjectList();
+    console.log(this.projectList);
     this.authService.isLoading.subscribe((resData) => {
       this.isLoading = resData;
     });
     this.projectService.isLoading.subscribe((resData) => {
       this.isLoading = true;
       setTimeout(this.toggleLoading.bind(this), 1000);
+    });
+    this.projectService.projectChanged.subscribe((changes) => {
+      console.log(changes);
     });
   }
 

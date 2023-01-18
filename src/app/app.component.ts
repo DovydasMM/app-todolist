@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { AuthService } from "./auth/auth.service";
+import { PostsService } from "./services/posts.service";
 import { ProjectsService } from "./services/projects.service";
 
 @Component({
@@ -12,7 +13,8 @@ export class AppComponent implements OnInit {
   constructor(
     private projectService: ProjectsService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private postService: PostsService
   ) {}
 
   title = "TodoList App";
@@ -44,6 +46,7 @@ export class AppComponent implements OnInit {
         this.isLoggedIn = false;
       }
     });
+
     this.router.navigate(["/all"]);
   }
 }
