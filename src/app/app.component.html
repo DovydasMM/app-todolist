@@ -1,31 +1,29 @@
-<div [ngClass]="{ dark: darkMode }">
-  <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"
-  />
-  <header>
-    <div (click)="toggleMenu()">
-      <i class="bi bi-list-task" style="font-size: 3.25rem"></i>
-    </div>
-    <p class="header-title">
-      <i class="bi bi-check-circle"></i
-      ><span class="header-title">ToDo</span>List
-    </p>
-    <div>
-      <div (click)="toggleLog()" class="header-login">
-        <span *ngIf="isLoggedIn"><i class="bi bi-box-arrow-left"></i></span
-        >{{ isLoggedIn ? " Log Out" : " Log In" }}
-        <span *ngIf="!isLoggedIn"
-          ><i class="bi bi-box-arrow-in-right"></i
-        ></span>
-      </div>
-    </div>
-  </header>
-  <div class="mainBody">
-    <app-sidebar *ngIf="menuOpen"></app-sidebar>
-    <div class="container">
-      <router-outlet></router-outlet>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"
+/>
+<header>
+  <div (click)="toggleMenu()">
+    <i class="bi bi-list-task" style="font-size: 2.25rem"></i>
+  </div>
+  <p class="header-title">
+    <i class="bi bi-check-circle"></i><span class="header-title">ToDo</span>List
+  </p>
+  <div>
+    <div (click)="toggleLog()" class="header-login">
+      <span *ngIf="isLoggedIn"><i class="bi bi-box-arrow-left"></i></span
+      >{{ isLoggedIn ? " Log Out" : " Log In" }}
+      <span *ngIf="!isLoggedIn"><i class="bi bi-box-arrow-in-right"></i></span>
     </div>
   </div>
-  <footer class="footer">Hello, this is footer</footer>
+</header>
+<div class="mainBody">
+  <app-sidebar *ngIf="menuOpen"></app-sidebar>
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
 </div>
+<footer class="footer">
+  © 2023 <a href="https://github.com/DovydasMM">DovydasMM</a>. All rights
+  reserved.
+</footer>

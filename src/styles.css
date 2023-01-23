@@ -1,16 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+html {
+  font-size: 16px;
+}
+
 :root {
   --bgColor1: #ececec;
   --bgColor2: white;
   --bgColor3: #22303c;
   --bgColor4: #2abd67;
   color: black;
-  /*
-  --bgColorPopUp: #273746;
-  --textColor: #eaebec;
-  --accent: #2abd67;
-  --accentDark:#1f8d4d;
-  */
 }
 
 .dark {
@@ -29,9 +27,21 @@ header {
   justify-content: space-between;
   flex-direction: row;
   align-items: center;
-  padding: 10px 20px;
+  padding: 0.625rem 1.25rem;
   border-bottom: 1px solid;
   background-color: var(--bgColor2);
+  width: 100%;
+}
+
+/*Header toggle sidebar icon */
+.bi.bi-list-task {
+  cursor: pointer;
+  padding: 3px;
+}
+.bi.bi-list-task:hover {
+  background-color: var(--bgColor4);
+  color: #ffffff;
+  border-radius: 5px;
 }
 
 .header-login {
@@ -39,8 +49,8 @@ header {
   display: flex;
   color: #ffffff;
   border: 0;
-  padding: 10px 20px;
-  font-size: 18px;
+  padding: 0.3rem 0.6rem;
+  font-size: 1rem;
   font-weight: bold;
   border-radius: 5px;
   box-shadow: 0 0 10px #000000;
@@ -55,39 +65,31 @@ header {
 
 .header-title {
   margin: 0;
-  font-size: 48px;
+  font-size: 3rem;
   font-weight: bold;
   font-family: Arial, Helvetica, sans-serif;
 }
 
 .bi.bi-check-circle {
-  font-size: 24px;
+  font-size: 1.5rem;
   margin-right: 3px;
 }
 
 .sidebar {
   height: 100%;
-  padding: 10px 20px;
+  padding: 0.625rem 1.25rem;
   width: 350px;
   background-color: var(--bgColor2);
-}
-
-.sidebar-container {
-  position: sticky;
-  overflow-x: hidden;
-  z-index: 1;
-  top: 0;
-  left: 0;
 }
 
 .sidebar-element.home {
   font-weight: 600;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 20px;
+  font-size: 1.25rem;
 }
 
 .sidebar-element.projects {
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 .sidebar-items {
@@ -109,7 +111,7 @@ header {
   display: block;
   padding-bottom: 5px;
   margin-bottom: 24px;
-  font-size: 32px;
+  font-size: 2rem;
 }
 
 .sidebar--active {
@@ -152,13 +154,13 @@ a:hover {
 }
 
 .container-projectName {
-  font-size: 36px;
-  padding: 20px;
+  font-size: 2.25rem;
+  padding: 1.25rem;
   background-color: #2abd67;
   font-weight: bold;
   color: white;
   border-radius: 4px;
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
 }
 
 .taskCard {
@@ -169,7 +171,7 @@ a:hover {
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  gap: 16px;
+  gap: 1rem;
   margin-bottom: 20px;
   cursor: pointer;
   border-radius: 10px;
@@ -178,11 +180,10 @@ a:hover {
 .information {
   display: flex;
   flex-direction: column;
-  /* width: 80%; */
 }
 
 .information-name {
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 600;
 }
 
@@ -201,15 +202,15 @@ a:hover {
 }
 
 .taskCard i {
-  font-size: 24px;
+  font-size: 1.5rem;
 }
 
 .taskCard.taskCard-create {
   display: block;
   border: none;
   font-weight: bold;
-  font-size: 24px;
-  padding-left: 20px;
+  font-size: 1.5rem;
+  padding-left: 1.25rem;
 }
 
 .taskCard.taskCard-create:hover {
@@ -222,13 +223,13 @@ a:hover {
 }
 
 .bi.bi-box-arrow-in-right {
-  font-size: 24px;
-  margin-left: 12px;
+  font-size: 1.5rem;
+  margin-left: 0.75rem;
 }
 
 .bi.bi-box-arrow-left {
-  font-size: 24px;
-  margin-right: 12px;
+  font-size: 1.5rem;
+  margin-right: 0.75rem;
 }
 
 .form-container {
@@ -259,9 +260,6 @@ a:hover {
 
 .menu-container {
   position: relative;
-}
-
-.menu-toggler {
 }
 
 .menu {
@@ -296,4 +294,62 @@ a.menu-item:hover {
   border-width: 5px;
   border-style: solid;
   border-color: black transparent transparent transparent;
+}
+
+footer {
+  background-color: #f9f9f9;
+  padding: 0.625rem 1.25rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.15);
+  text-align: center;
+}
+
+footer a {
+  text-decoration: none;
+  font-weight: bold;
+}
+
+footer a:hover {
+  color: #636363;
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 480px) {
+  html {
+    font-size: 12px;
+  }
+
+  header {
+    position: sticky;
+    overflow-x: hidden;
+    z-index: 1;
+    top: 0;
+    left: 0;
+  }
+
+  .sidebar {
+    max-width: 10em;
+  }
+
+  .taskCard {
+    display: flex;
+    flex-direction: column;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  html {
+    font-size: 16px;
+  }
+
+  .sidebar-container {
+    position: sticky;
+    overflow-x: hidden;
+    z-index: 1;
+    top: 0;
+    left: 0;
+  }
 }
