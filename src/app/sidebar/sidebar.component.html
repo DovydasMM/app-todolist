@@ -1,59 +1,61 @@
-<div class="sidebar sticky">
-  <div class="sidebar-element">
-    <span class="sidebar-title">Home</span>
+<div class="sidebar">
+  <div class="sidebar-container">
+    <div class="sidebar-element home">
+      <span class="sidebar-title">Home</span>
 
-    <ul>
-      <li
-        class="sidebar-items"
-        routerLink="all"
-        routerLinkActive="sidebar--active"
-      >
-        <a>All tasks</a>
-      </li>
-      <li
-        class="sidebar-items"
-        routerLink="important"
-        routerLinkActive="sidebar--active"
-      >
-        <a r>Important</a>
-      </li>
-      <li
-        class="sidebar-items"
-        routerLink="today"
-        routerLinkActive="sidebar--active"
-      >
-        <a>Today</a>
-      </li>
-      <li
-        class="sidebar-items"
-        routerLink="weekly"
-        routerLinkActive="sidebar--active"
-      >
-        <a>Next 7 Days</a>
-      </li>
-    </ul>
-  </div>
-  <div class="sidebar-element">
-    <span class="sidebar-title">Projects</span>
-    <app-load-spinner *ngIf="isLoading"> </app-load-spinner>
-    <ul *ngIf="!isLoading">
-      <li
-        class="sidebar-items"
-        [routerLink]="['/projects', i + 1]"
-        routerLinkActive="sidebar--active"
-        *ngFor="let project of projectList; index as i"
-      >
-        <a>{{ project.projectName }}</a>
-        <div (click)="onDelete(project)">
-          <i class="bi bi-pencil-square"></i>
-        </div>
-      </li>
-      <li class="sidebar-items" (click)="toggleCreate()">Add Project</li>
-    </ul>
-    <div *ngIf="createProject">
-      <label for="projectName">Project name: </label>
-      <input type="text" id="projectName" class="form-control" #nameInput />
-      <button (click)="onCreate()">Save</button>
+      <ul>
+        <li
+          class="sidebar-items"
+          routerLink="all"
+          routerLinkActive="sidebar--active"
+        >
+          <a>All tasks</a>
+        </li>
+        <li
+          class="sidebar-items"
+          routerLink="important"
+          routerLinkActive="sidebar--active"
+        >
+          <a r>Important</a>
+        </li>
+        <li
+          class="sidebar-items"
+          routerLink="today"
+          routerLinkActive="sidebar--active"
+        >
+          <a>Today</a>
+        </li>
+        <li
+          class="sidebar-items"
+          routerLink="weekly"
+          routerLinkActive="sidebar--active"
+        >
+          <a>Next 7 Days</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sidebar-element projects">
+      <span class="sidebar-title">Projects</span>
+      <app-load-spinner *ngIf="isLoading"> </app-load-spinner>
+      <ul *ngIf="!isLoading">
+        <li
+          class="sidebar-items"
+          [routerLink]="['/projects', i + 1]"
+          routerLinkActive="sidebar--active"
+          *ngFor="let project of projectList; index as i"
+        >
+          <a>{{ project.projectName }}</a>
+          <div (click)="onDelete(project)">
+            <i class="bi bi-trash3-fill"></i>
+          </div>
+        </li>
+        <li class="sidebar-items" (click)="toggleCreate()">Add Project</li>
+      </ul>
+      <div *ngIf="createProject">
+        <label for="projectName">Project name: </label>
+        <input type="text" id="projectName" class="form-control" #nameInput />
+        <button (click)="onCreate()">Save</button>
+      </div>
     </div>
   </div>
 </div>

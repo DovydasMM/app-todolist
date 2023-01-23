@@ -34,25 +34,65 @@ header {
   background-color: var(--bgColor2);
 }
 
+.header-login {
+  background-color: var(--bgColor4);
+  display: flex;
+  color: #ffffff;
+  border: 0;
+  padding: 10px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 5px;
+  box-shadow: 0 0 10px #000000;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.header-title span {
+  color: var(--bgColor4);
+}
+
+.header-title {
+  margin: 0;
+  font-size: 48px;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.bi.bi-check-circle {
+  font-size: 24px;
+  margin-right: 3px;
+}
+
 .sidebar {
+  height: 100%;
   padding: 10px 20px;
   width: 350px;
   background-color: var(--bgColor2);
-  position: fixed;
+}
+
+.sidebar-container {
+  position: sticky;
   overflow-x: hidden;
   z-index: 1;
   top: 0;
   left: 0;
 }
 
-.sidebar-element {
-  margin-bottom: 2rem;
+.sidebar-element.home {
+  font-weight: 600;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+}
+
+.sidebar-element.projects {
+  font-size: 16px;
 }
 
 .sidebar-items {
   display: flex;
   flex-direction: row;
-  font-size: 16px;
   padding: 5px;
   margin-bottom: 1rem;
   border: 1px solid;
@@ -77,20 +117,16 @@ header {
   background-color: #2abd6770;
 }
 
-.sticky {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
-}
-
 ul {
   padding: 0;
   margin: 0;
 }
 
-a {
+a,
+a:hover {
   list-style: none;
   color: inherit;
+  text-decoration: none;
 }
 
 .sidebar-items:hover {
@@ -145,6 +181,11 @@ a {
   /* width: 80%; */
 }
 
+.information-name {
+  font-size: 16px;
+  font-weight: 600;
+}
+
 .taskCard-right {
   display: flex;
   flex-direction: row;
@@ -188,37 +229,6 @@ a {
 .bi.bi-box-arrow-left {
   font-size: 24px;
   margin-right: 12px;
-}
-
-.header-login {
-  background-color: var(--bgColor4);
-  display: flex;
-  color: #ffffff;
-  border: 0;
-  padding: 10px 20px;
-  font-size: 18px;
-  font-weight: bold;
-  border-radius: 5px;
-  box-shadow: 0 0 10px #000000;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
-.header-title span {
-  color: var(--bgColor4);
-}
-
-.header-title {
-  margin: 0;
-  font-size: 36px;
-  font-weight: bold;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-.bi.bi-check-circle {
-  font-size: 24px;
-  margin-right: 3px;
 }
 
 .form-container {
